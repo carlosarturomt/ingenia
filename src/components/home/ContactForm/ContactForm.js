@@ -28,7 +28,7 @@ export const ContactForm = () => {
   const isValidEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
-  };
+  }
 
   const validateForm = () => {
     let isValid = true;
@@ -76,44 +76,44 @@ export const ContactForm = () => {
     }
 
     return isValid;
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (validateForm()) {
-      // Form is valid, handle submission (e.g., send data to server)
       if (captcha.current.getValue()) {
         console.log('The user isn´t a robot :D')
         const data = new FormData(e.target)
-        const response = await fetch(e.target.action, {
-          method: 'POST',
-          body: data,
-          headers: {
-            Accept: 'application/json',
+        try {
+          const response = await fetch(e.target.action, {
+            method: 'POST',
+            body: data,
+            headers: {
+              Accept: 'application/json',
+            }
+          }).then
+          const result = await response.json()
+          if (!response.ok) {
+            setShowMessage(true)
+            setMessage(result.errors.map(error => error.message).join(', '))
+            return false
+          } else {
+            setShowMessage(true)
+            setMessage('Se ha enviado con éxito')
+            setTimeout(() => { setShowMessage(false) }, 6000)
           }
-        })
-        const result = await response.json()
-        if (!response.ok) {
+        } catch (error) {
+          console.log('There was an error', error);
           setShowMessage(true)
-          setMessage(result.errors.map(error => error.message).join(', '))
-          return false
-        } else {
-          setShowMessage(true)
-          setMessage('Se ha enviado con éxito')
+          setMessage('There was an error')
           setTimeout(() => { setShowMessage(false) }, 6000)
         }
-        console.log('message: ', message);
       } else {
         setIsCaptcha(true)
         console.log('Por favor valida el captcha')
       }
-      //console.log('Form submitted:', frmData);
     }
-    //console.log(errors.fullName, errors.email)
-    //setShowMessage(true)
-
-    /* console.log(':D'); */
   }
 
   return (
