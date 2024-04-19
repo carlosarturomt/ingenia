@@ -14,6 +14,9 @@ module.exports = {
       },
       colors: {
         orange: '#fc7200'
+      },
+      letterSpacing: {
+        xl: '.25em',
       }
     },
   },

@@ -5,7 +5,6 @@ import ReCAPTCHA from "react-google-recaptcha"
 
 
 export const ContactForm = () => {
-  //const [displayName, setDisplayName] = useState({ firstName: '', lastName: '', fullName: '' })
   const [frmData, setFrmData] = useState({ fullName: '', email: '', phone: '', comment: '' })
   const [errors, setErrors] = useState({ fullName: '', email: '', phone: '', comment: '' })
   const [message, setMessage] = useState('')
@@ -14,25 +13,12 @@ export const ContactForm = () => {
 
   const captcha = useRef(null)
 
-
-  /* const handleChangeName = async (e) => {
-    const { name, value } = e.target
-    setDisplayName(
-      {
-        ...displayName,
-        [name]: value,
-        'fullName': displayName.firstName + ' ' + displayName.lastName
-      }
-    )
-  } */
-
   const onChange = () => {
     if (captcha.current.getValue()) {
       setIsCaptcha(false)
       console.log('The user isn´t a robot :D')
     }
   }
-
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -46,7 +32,6 @@ export const ContactForm = () => {
 
   const validateForm = () => {
     let isValid = true;
-
     // Validate fullName
     if (!frmData.fullName.trim()) {
       setErrors((errors) => ({
@@ -56,7 +41,6 @@ export const ContactForm = () => {
       console.log('fullName EMPTY')
       isValid = false;
     }
-
     // Validate email
     if (!frmData.email.trim()) {
       setErrors((prevErrors) => ({
@@ -72,7 +56,6 @@ export const ContactForm = () => {
       }));
       isValid = false;
     }
-
     // Validate phone
     if (!frmData.phone.trim()) {
       setErrors((errors) => ({
@@ -82,7 +65,6 @@ export const ContactForm = () => {
       console.log('phone EMPTY')
       isValid = false;
     }
-
     // Validate comment
     if (!frmData.comment.trim()) {
       setErrors((errors) => ({
@@ -143,39 +125,39 @@ export const ContactForm = () => {
       </hgroup>
 
       <form
-        action="https://formspree.io/f/xzbnyedz"
-        //action="http://ingenia.com/snippets/test/contact.php"
+        //action="https://formspree.io/f/xzbnyedz"
+        action="http://ingenia.com/snippets/test/contact.php"
         method="POST"
         onSubmit={handleSubmit}
-        className="relative w-full max-w-screen-md py-6"
+        className="relative w-full max-w-screen-sm py-6"
       >
-        <div className="flex gap-6">
-          <div className='w-1/2 relative'>
+        <div className="flex gap-6 flex-col sm:flex-row">
+          <div className='w-full sm:w-1/2 relative'>
             {
               errors.fullName == 'empty' &&
               <span className="absolute ml-7 uppercase text-xs font-light text-orange">*Required Field</span>
             }
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full flex items-center justify-center text-sm bg-orange text-white">1</span>
+              <span className="ml-4 sm:ml-0 w-5 h-5 rounded-full flex items-center justify-center text-sm bg-orange text-white">1</span>
               <input
-                //required
+                required
                 placeholder="Name"
-                className={(errors.fullName == 'empty' && ' border-orange ') + ` mt-4 focus:outline-none w-full border-2 border-midnight no-focus p-2 font-light`}
+                className={(errors.fullName == 'empty' && ' border-orange ') + ` mt-4 focus:outline-none w-10/12 sm:w-full border-2 border-midnight no-focus p-2 font-light`}
                 type="text"
                 id="fullName" name="fullName"
                 onChange={handleChange}
               />
             </div>
           </div>
-          <div className='w-1/2 relative'>
+          <div className='w-full sm:w-1/2 relative'>
             {
               errors.fullName == 'empty' &&
               <span className="absolute uppercase text-xs font-light text-orange">*Required Field</span>
             }
             <input
-              //required
+              required
               placeholder="Last Name"
-              className={(errors.fullName && ' border-orange ') + ` mt-4 focus:outline-none w-full border-2 border-midnight no-focus p-2 font-light`}
+              className={(errors.fullName && ' border-orange ') + ` mt-4 focus:outline-none ml-11 sm:ml-0 w-10/12 sm:w-full border-2 border-midnight no-focus p-2 font-light`}
               type="text"
             //id="lastName" name="lastName"
             //onChange={handleChange}
@@ -183,8 +165,8 @@ export const ContactForm = () => {
           </div>
         </div>
 
-        <div className="flex gap-6">
-          <div className='w-1/2 relative'>
+        <div className="flex gap-6 flex-col sm:flex-row">
+          <div className='w-full sm:w-1/2 relative'>
             {
               errors.email == 'empty' &&
               <span className="absolute ml-7 uppercase text-xs font-light text-orange">*Required Field</span>
@@ -194,26 +176,26 @@ export const ContactForm = () => {
               <span className="absolute ml-7 uppercase text-xs font-light text-orange">*Email Invalid</span>
             }
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full flex items-center justify-center text-sm bg-orange text-white">2</span>
+              <span className="ml-4 sm:ml-0 w-5 h-5 rounded-full flex items-center justify-center text-sm bg-orange text-white">2</span>
               <input
-                //required
+                required
                 placeholder="E-mail"
-                className={(errors.email && ' border-orange ') + ` mt-4 focus:outline-none w-full border-2 border-midnight no-focus p-2 font-light`}
+                className={(errors.email && ' border-orange ') + ` mt-4 focus:outline-none w-10/12 sm:w-full border-2 border-midnight no-focus p-2 font-light`}
                 type="email"
                 id="email" name="email"
                 onChange={handleChange}
               />
             </div>
           </div>
-          <div className='w-1/2 relative'>
+          <div className='w-full sm:w-1/2 relative'>
             {
               errors.phone == 'empty' &&
               <span className="absolute uppercase text-xs font-light text-orange">*Required Field</span>
             }
             <input
-              //required
+              required
               placeholder="Phone"
-              className={(errors.phone && ' border-orange ') + ` mt-4 focus:outline-none w-full border-2 border-midnight no-focus p-2 font-light`}
+              className={(errors.phone && ' border-orange ') + ` mt-4 focus:outline-none ml-11 sm:ml-0 w-10/12 sm:w-full border-2 border-midnight no-focus p-2 font-light`}
               type="tel"
               id="phone" name="phone"
               onChange={handleChange}
@@ -225,7 +207,7 @@ export const ContactForm = () => {
           <div className='w-full mt-4'>
             <div className="flex items-center gap-2">
 
-              <span className="w-5 h-5 rounded-full flex items-center justify-center text-sm bg-orange text-white">3</span>
+              <span className="ml-4 sm:ml-0 w-5 h-5 rounded-full flex items-center justify-center text-sm bg-orange text-white">3</span>
               <p className="font-light">Tell us about your challenge or opportunity</p>
             </div>
             {
@@ -233,8 +215,9 @@ export const ContactForm = () => {
               <span className="absolute ml-7 uppercase text-xs font-light text-orange">*Required Field</span>
             }
             <textarea
-              //required
-              className={(errors.comment && ' border-orange ') + ` mt-4 focus:outline-none w-[98%] border-2 border-midnight no-focus p-2 font-light ml-5`}
+              required
+              className={(errors.comment && ' border-orange ') + ` mt-4 focus:outline-none w-10/12 sm:w-[98%] border-2 border-midnight no-focus p-2 font-light ml-10 sm:ml-5`}
+              rows="5"
               type="text"
               id="comment" name="comment"
               onChange={handleChange}
@@ -251,8 +234,8 @@ export const ContactForm = () => {
           </div>
         }
 
-        <div className={`${isCaptcha && 'rounded-md border-[1px] border-red-500 text-red-700 '} + mt-3 p-3 flex items-start justify-between `}>
-          <div>
+        <div className={`${isCaptcha && 'rounded-md border-[1px] border-red-500 text-red-700 '} + mt-3 p-3 flex items-center sm:items-start justify-center sm:justify-between flex-col sm:flex-row`}>
+          <div className="flex justify-center flex-col">
             <ReCAPTCHA
               ref={captcha}
               sitekey={env.RECAPTCHA_SITE_KEY_V2}
@@ -264,13 +247,12 @@ export const ContactForm = () => {
             }
           </div>
 
-          <div className='flex justify-end'>
+          <div className='flex justify-end mt-4 sm:mt-0'>
             <button className="flex items-center uppercase py-1 px-3 bg-orange text-white">Send</button>
           </div>
         </div>
 
       </form>
-
     </section>
   )
 }
